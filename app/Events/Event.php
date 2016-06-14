@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace socnetwork\Events;
 
 abstract class Event
 {

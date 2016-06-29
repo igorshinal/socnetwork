@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => socnetwork\User::class,
+            'model' => socnetwork\Models\User::class,
         ],
 
         // 'users' => [

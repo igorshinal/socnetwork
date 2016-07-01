@@ -62,9 +62,14 @@ class User extends Model implements AuthenticatableContract
         return $this->belongsToMany('socnetwork\Models\User', 'friends', 'friends_id', 'user_id');
     }
 
-        public function friends()
+    public function friends()
     {
         return $this->friendsOfMine()->wherePivot('accepted', true)->get()->merge($this->friendOf()->wherePivot('accepted', true)->get());
+    }
+
+    public function friendRequests()
+    {
+        return $this->friendsOfMine()->wherePivot('accepted', false)->get();
     }
 
 

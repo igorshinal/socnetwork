@@ -72,4 +72,16 @@ Route::get('/friends', [
     'middleware' => ['auth'],
 ]);
 
+Route::get('/friends/add/{username}', [
+    'uses' => '\socnetwork\Http\Controllers\FriendController@getAdd',
+    'as' => 'friend.add',
+    'middleware' => ['auth'],
+]);
+
+Route::get('/friends/accept/{username}', [
+    'uses' => '\socnetwork\Http\Controllers\FriendController@getAccept',
+    'as' => 'friend.accept',
+    'middleware' => ['auth'],
+]);
+
 

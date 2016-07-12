@@ -16,10 +16,10 @@
         <div class="col-lg-6">
             <h4>Friend requests</h4>
 
-            @if(!$request->count())
+            @if(!$requests->count())
                 <p>You have no friends request</p>
             @else
-                @foreach($request as $user)
+                @foreach($requests as $user)
                     @include('user.partials.userblock')
                 @endforeach
             @endif

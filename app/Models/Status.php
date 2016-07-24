@@ -26,4 +26,9 @@ class Status extends Model
     {
         return $this->hasMany('socnetwork\Models\Status', 'parent_id');
     }
+
+    public function likes()
+    {
+        return $this->morphMany('socnetwork\Models\Like', 'likeable');
+    }
 }

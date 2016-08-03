@@ -52,12 +52,23 @@ class FriendController extends Controller
             return redirect()->route('home')->with('info', 'That user could not be found');
         }
 
-        if(!Auth::user()->hasFriendRequestsRecieved($user)) {
+        if (!Auth::user()->hasFriendRequestsRecieved($user)) {
             return redirect()->route('home');
         }
         Auth::user()->acceptFriendRequest($user);
 
         return redirect()->route('profile.index', ['username' => $username])->with('info', 'Friend request accepted');
+    }
+
+    public function postDelete($username)
+    {
+        $user = User::where('username', $username)->first();
+        if (!Auth::user()->isFriendsWith($user)) {
+            return redirect()->back();
+        }
+        Auth::user()->deleteFriend($user);
+        return redirect()->back()->with('info', 'Friend deleted');
+
     }
 
 }

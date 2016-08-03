@@ -2,6 +2,8 @@
 
 namespace socnetwork\Models;
 
+
+use socnetwork\Models\Status;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -51,10 +53,15 @@ class User extends Model implements AuthenticatableContract
     {
         return "https://www.gravatar.com/avatar/{{ md5($this->email) }}?d=mm&s=40";
     }
-    
+
     public function statuses()
     {
         return $this->hasMany('socnetwork\Models\Status', 'user_id');
+    }
+
+    public function likes()
+    {
+        return $this->hasMany('socnetwork\Models\Like', 'user_id');
     }
 
     public function friendsOfMine()
@@ -84,17 +91,24 @@ class User extends Model implements AuthenticatableContract
 
     public function hasFriendRequestsPending(User $user)
     {
-        return (bool) $this->friendRequestsPending()->where('id', $user->id)->count();
+        return (bool)$this->friendRequestsPending()->where('id', $user->id)->count();
     }
 
     public function hasFriendRequestsRecieved(User $user)
     {
-        return (bool) $this->friendRequests()->where('id', $user->id)->count();
+        return (bool)$this->friendRequests()->where('id', $user->id)->count();
     }
 
     public function addFriend(User $user)
     {
         $this->friendOf()->attach($user->id);
+    }
+
+    public function deleteFriend(User $user)
+    {
+        $this->friendOf()->detach($user->id);
+        $this->friendsOfMine()->detach($user->id);
+
     }
 
     public function acceptFriendRequest(User $user)
@@ -106,7 +120,12 @@ class User extends Model implements AuthenticatableContract
 
     public function isFriendsWith(User $user)
     {
-        return (bool) $this->friends()->where('id', $user->id)->count();
+        return (bool)$this->friends()->where('id', $user->id)->count();
+    }
+
+    public function hasLikedStatus(Status $status)
+    {
+        return (bool)$status->likes()->where('user_id', $this->id)->count();
     }
 
 

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLikableTable extends Migration
+class CreateLikeableTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateLikableTable extends Migration
      */
     public function up()
     {
-        Schema::create('likable', function (Blueprint $table){
+        Schema::create('likeable', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('likeable_id');
@@ -28,6 +28,6 @@ class CreateLikableTable extends Migration
      */
     public function down()
     {
-        Schema::drop('likable');
+        Schema::drop('likeable');
     }
 }

@@ -1,11 +1,12 @@
 <?php
+
 namespace socnetwork\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Like extends Model
 {
-    protected $table = 'likbale';
+    protected $table = 'likeable';
 
 
     public function likeable()
